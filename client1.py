@@ -7,13 +7,10 @@ import paho.mqtt.client as mqtt
 logging.basicConfig(filename='logs/client1.log', level=logging.INFO,
                     format='%(levelname)s:%(message)s')
 
+
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        # Subscribing in on_connect() means that if we lose the connection and
-        # reconnect then subscriptions will be renewed.
-        client.subscribe(topics.energy[1])
-        client.subscribe('$SYS/broker/load/publish/received/1min')
         print("Connected | RESULT CODE:"+str(rc))
     elif rc ==1:
         print("Connection failed – Incorrect protocol version | RESULT CODE: " + str(rc))
@@ -31,11 +28,10 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a LOG message is received from the server.
 def on_log(client, userdata, level, buf):
     print('log: ' + str(buf))
-    logging.info(str(buf))
 
-# The callback for when a PUBLISH message is received from the server.
-def on_message(client, userdata, msg):
-    print(msg.topic + ' ' + str(msg.payload))
+# Log published data.
+def on_publish(client, userdata, mid):
+    logging.info(str(mid))
 
 # Define the client instance.
 client = mqtt.Client(
@@ -51,8 +47,8 @@ client.connect(test.broker, 1883)
 
 # Activate callbacks - Comment out as necessary.
 client.on_connect = on_connect
-# client.on_log = on_log
-client.on_message = on_message
+client.on_log = on_log
+client.on_publish = on_publish
 
 # This is necessary.
 time.sleep(4)
@@ -62,7 +58,6 @@ time.sleep(4)
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
 client.loop_start()
-
 # Publish random values between 1-100 to the broker at random intervals between 1-30 seconds.
 while True:
     client.publish(

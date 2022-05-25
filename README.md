@@ -13,7 +13,7 @@ Ideally, each environment should be in their own AWS account with their own IAM.
 
 To start the Eclipse Mosquitto broker run:
 
-`docker run -it -d -p 1883:1883 -p 9001:9001 -v home/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
+`docker run -it -d -p 1883:1883 -p 9001:9001 -v home/dev/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
 
 ### Notes: 
 Further development and configuration is required. Current broker does not have SSL enabled, client authentication, messages are unencrypted, and no data, log, or PID files have been created.
