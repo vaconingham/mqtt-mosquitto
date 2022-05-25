@@ -144,3 +144,31 @@ INFO:2
 INFO:Received PUBLISH (d0, q0, r0, m0), 'site/in/solar', ...  (1 bytes)
 INFO:Sending PUBLISH (d0, q0, r1, m3), 'b'site/in/solar/avg'', ... (156 bytes)
 INFO:3
+INFO:Received PUBLISH (d0, q0, r0, m0), 'site/in/solar', ...  (2 bytes)
+INFO:Sending PUBLISH (d0, q0, r1, m4), 'b'site/in/solar/avg'', ... (201 bytes)
+INFO:4
+INFO:Received PUBLISH (d0, q0, r0, m0), 'site/in/solar', ...  (2 bytes)
+INFO:Sending PUBLISH (d0, q0, r1, m5), 'b'site/in/solar/avg'', ... (162 bytes)
+INFO:5
+INFO:Sending PINGREQ
+INFO:Received PINGRESP
+INFO:Received PUBLISH (d0, q0, r0, m0), 'site/in/solar', ...  (2 bytes)
+INFO:Sending PUBLISH (d0, q0, r1, m6), 'b'site/in/solar/avg'', ... (173 bytes)
+INFO:6
+INFO:Received PUBLISH (d0, q0, r0, m0), 'site/in/solar', ...  (2 bytes)
+INFO:Sending PUBLISH (d0, q0, r1, m7), 'b'site/in/solar/avg'', ... (187 bytes)
+INFO:7
+INFO:Received PUBLISH (d0, q0, r0, m0), 'site/in/solar', ...  (1 bytes)
+INFO:Sending PUBLISH (d0, q0, r1, m8), 'b'site/in/solar/avg'', ... (187 bytes)
+INFO:8
+INFO:Sending PINGREQ
+INFO:Received PINGRESP
+INFO:Received PUBLISH (d0, q0, r0, m0), 'site/in/solar', ...  (2 bytes)
+INFO:Sending PUBLISH (d0, q0, r1, m9), 'b'site/in/solar/avg'', ... (177 bytes)
+INFO:9
+INFO:Received PUBLISH (d0, q0, r0, m0), 'site/in/solar', ...  (2 bytes)
+INFO:Sending PUBLISH (d0, q0, r1, m10), 'b'site/in/solar/avg'', ... (186 bytes)
+INFO:10
+INFO:Received PUBLISH (d0, q0, r0, m0), 'site/in/solar', ...  (2 bytes)
+INFO:Sending PUBLISH (d0, q0, r1, m11), 'b'site/in/solar/avg'', ... (159 bytes)
+INFO:11
