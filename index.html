@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+</head>
+<body>
+    <h1>Droplet Information</h1>
+    <h2>Droplet ID - Droplet Name</h2>
+    <h3>Moving Averages</h3>
+    <canvas id="dropletBarChart" style="width:100%;max-width:700px"></canvas>
+    <table>
+        <tr>
+            <th>Timestamp</th>
+            <th>1min</th>
+            <th>5min</th>
+            <th>30min</th>
+        </tr>
+        <tr>
+            <td id="timestamp">Timestamp</td>
+            <td id="current">34</td>
+            <td id="1min">66</td>
+            <td id="5min">34</td>
+            <td id="30min">34</td>
+        </tr>
+    </table>
+    <script>
+        let xValues = ["Current", "1min", "5min", "30min"];
+        let yValues = [40, 50, 60, 70];
+        let barColors = "red";
+
+        const barChart = new Chart("dropletBarChart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {}
+            });
+    </script>
+</body>
+</html>

@@ -1,2 +1,7 @@
 __pycache__/
 logs/
+client/
+config/
+manage.py
+db.sqlite3
+index.js
