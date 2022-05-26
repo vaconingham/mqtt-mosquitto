@@ -1,6 +1,7 @@
 __pycache__/
-logs/*
+logs/
 client/
 config/
-droplet/
 manage.py
+db.sqlite3
+index.js

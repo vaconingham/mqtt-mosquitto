@@ -15,6 +15,7 @@ Ideally, each environment should be in their own AWS account with their own IAM.
 
 `docker run -it -d -p 1883:1883 -p 9001:9001 -v home/dev/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
 
+2. If you haven't done so already, create a folder for your logs in your working directory: `mkdir logs`
 2. Run files manually: `python3 client1.py, client2.py, and client3.py`
 3. Ensure logs are working correctly. This can be either seeing output in log files or in the console.
 
