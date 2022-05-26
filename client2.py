@@ -117,7 +117,8 @@ client.on_log = on_log
 client.on_message = on_message
 client.on_publish = on_publish
 
-# This is necessary.
+# This is here to give time to for the client to connect before tryying to process data.
+# The more efficient way would be to use a flag on_connect.
 time.sleep(4)
 
 client.loop_forever()

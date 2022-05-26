@@ -1,14 +1,15 @@
 from distutils.log import INFO
 import paho.mqtt.client as mqtt
 import test, topics, time, json, logging
-# from prettytable import PrettyTable
+from prettytable import PrettyTable
 
 # Root log handler. Good practice would be to push any logs from the 
 # client to a specific log files. Further configuration required. 
 logging.basicConfig(filename='logs/client3.log', level=logging.INFO,
                     format='%(levelname)s:%(message)s')
 
-# table = PrettyTable()
+table = PrettyTable()
+message_log = {}
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -33,6 +34,8 @@ def on_log(client, userdata, level, buf):
 def on_message(client, userdata, msg):
     payload = msg.payload
     message = json.loads(payload.decode('utf_8'))
+    for i in message.items():
+        message_log.append({i})
     logging.info(message)
 
 client = mqtt.Client(
@@ -50,7 +53,8 @@ client.on_connect = on_connect
 client.on_log = on_log
 client.on_message = on_message
 
-# This is necessary.
+# This is here to give time to for the client to connect before tryying to process data.
+# The more efficient way would be to use a flag on_connect.
 time.sleep(4)
 
 # Blocking call that processes network traffic, dispatches callbacks and
