@@ -1,6 +1,6 @@
 # MQTT Service
 
-## Overview
+### Overview
 
 This is an example of a production ready MQTT service written in Python with a Eclipse Mosquitto broker running inside a Docker cotainer.
 
@@ -9,7 +9,7 @@ For the purpose of simplicity, this project does not have isolated environments 
 
 Ideally, each environment should be in their own AWS account with their own IAM. These accounts should be children of the main account, making it easy to consolidate tasks, billing, permissions, and more.
 
-## Setup (Current)
+### Setup (Current)
 
 1. Start the Eclipse Mosquitto broker:
 
@@ -23,7 +23,7 @@ Further development and configuration is required. Current broker does not have 
 
 Server requires configuring for CI/CD with Ansible.
 
-## Bugs
+### Bugs
 
 - Missing exception handling in moving functions. If it returns zero, the code will break.
 - Moving averages functions divide by zero. As there is no exception handling, the code breaks.
@@ -31,7 +31,7 @@ Server requires configuring for CI/CD with Ansible.
 - Files should be imported as modules and called from one main file.
 - Logs need configured properly.
 
-## Contributing
+### Contributing
 
 1. Clone the `prod` branch.
 2. Make a pull request to the `dev` branch.

@@ -50,7 +50,8 @@ client.on_connect = on_connect
 client.on_log = on_log
 client.on_publish = on_publish
 
-# This is necessary.
+# This is here to give time to for the client to connect before tryying to process data.
+# The more efficient way would be to use a flag on_connect.
 time.sleep(4)
 
 # Blocking call that processes network traffic, dispatches callbacks and
