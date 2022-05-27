@@ -10,7 +10,7 @@ The UI does two things:
 1. Collects data from clients publishing to restricted topics on the MQTT broker.
 2. Django allows users to visualise information through a simple UI about each client connected within the IoT.
 
-<!-- ### Important Notes
+### Important Notes
 For the purpose of simplicity, this project does not have isolated environments i.e. development, staging, and production.
 
 Ideally, each environment should be in their own AWS account with their own IAM. These accounts should be children of the main account, making it easy to consolidate tasks, billing, permissions, and more.
@@ -22,13 +22,18 @@ Ideally, each environment should be in their own AWS account with their own IAM.
 `docker run -it -d -p 1883:1883 -p 9001:9001 -v home/dev/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
 
 2. If you haven't done so already, create a folder for your logs in your working directory: `mkdir logs`
-2. Run files manually: `python3 client1.py, client2.py, and client3.py`
-3. Ensure logs are working correctly. This can be either seeing output in log files or in the console.
+2. Run the "mock" MQTT client: `python3 test_client.py`
+3. Start the Django server: `python3 manage.py runserver`
+4. Ensure logs are working correctly. This can be either seeing output in log files or in the console.
 
 ### Important Notes: 
-Further development and configuration is required. Current broker does not have SSL enabled, client authentication, messages are unencrypted, and no data, log, or PID files have been created.
+- Further development and configuration is required. Current broker does not have SSL enabled, client authentication, messages are unencrypted, and no data, log, or PID files have been created.
 
-Server requires configuring for CI/CD with Ansible.
+- Django is currently running DEBUG = True. Further configuration required to have it production ready.
+
+- Django running development server only. Production grade server such as Gunicorn or UWSGI is required.
+
+- Server requires configuring for CI/CD with Ansible.
 
 ### Bugs
 
@@ -42,17 +47,4 @@ Server requires configuring for CI/CD with Ansible.
 
 1. Clone the `prod` branch.
 2. Make a pull request to the `dev` branch.
-3. Be verbose, specific, and generous with your commentary. -->
-
-
-index.html
-    - client1 client_id (IF EXISTS)
-        -> client.html
-            - GET client_id
-            - RUN client2, client3
-            - GET client3 data
-                - timestamp
-                - current
-                - 1min
-                - 5min
-                - 30min
+3. Be verbose, specific, and generous with your commentary.

@@ -3,6 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <title>Client</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            }
+    </style>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>
@@ -13,13 +18,13 @@
     <p>S/N: {{ client.client_serial_number }}</p>
     <h3>Moving Averages</h3>
     <canvas id="dropletBarChart" style="width:100%;max-width:700px"></canvas>
-    <table>
+    <table style="padding-top: 2em">
         <tr>
-            <th>Timestamp</th>
-            <th>Current</th>
-            <th>1min</th>
-            <th>5min</th>
-            <th>30min</th>
+            <th style="padding-right: 4em">Timestamp</th>
+            <th style="padding-right: 4em">Current</th>
+            <th style="padding-right: 4em">1min</th>
+            <th style="padding-right: 4em">5min</th>
+            <th style="padding-right: 4em">30min</th>
         </tr>
         <tr>
             <td id="timestamp">{{ data.timestamp }}</td>
