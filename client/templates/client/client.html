@@ -69,8 +69,14 @@
         //     payloadInputDom.value = '';
         // };
 
+        let timestamp = document.getElementById('timestamp').innerHTML;
+        let current = document.getElementById('current').innerHTML;
+        let one = document.getElementById('1min').innerHTML;
+        let five = document.getElementById('5min').innerHTML;
+        let thirty = document.getElementById('30min').innerHTML;
+
         let xValues = ["current", "1min", "5min", "30min"];
-        let yValues = [55, 40, 50, 60]; // Values to be popualted here.
+        let yValues = [current, one, five, thirty]; // Values to be popualted here.
         let barColors = "red";
 
         const barChart = new Chart("dropletBarChart", {
