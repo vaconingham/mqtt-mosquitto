@@ -15,7 +15,7 @@ For the purpose of simplicity, this project does not have isolated environments 
 
 Ideally, each environment should be in their own AWS account with their own IAM. These accounts should be children of the main account, making it easy to consolidate tasks, billing, permissions, and more.
 
-### Setup (Current)
+### How to get it working:
 
 1. Start the Eclipse Mosquitto broker:
 
@@ -25,6 +25,7 @@ Ideally, each environment should be in their own AWS account with their own IAM.
 2. Run the "mock" MQTT client: `python3 test_client.py`
 3. Start the Django server: `python3 manage.py runserver`
 4. Ensure logs are working correctly. This can be either seeing output in log files or in the console.
+5. Visit 127.0.0.1/client and enter the client_name, which can be found in the Django admin console or in the test_client.py file.
 
 ### Important Notes: 
 - Further development and configuration is required. Current broker does not have SSL enabled, client authentication, messages are unencrypted, and no data, log, or PID files have been created.
