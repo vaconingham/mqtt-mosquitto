@@ -1,14 +1,18 @@
+from doctest import OutputChecker
 from django.shortcuts import get_object_or_404, render
-import client1, client2
+import client
 
-from .models import Client
+from .models import Client, DataOutput
+
 
 def index(request):
     return render(request, 'client/index.html')
 
 def client(request, client_name):
+    data = DataOutput.objects.filter(client_id=client_name).latest('timestamp')
     client = get_object_or_404(Client, client_name=client_name)
     return render(request, 'client/client.html',{
         'client': client,
-        'client_name': client_name
+        'client_name': client_name,
+        'data': data
         })

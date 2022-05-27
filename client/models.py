@@ -25,4 +25,4 @@ class DataOutput(models.Model):
     thirty_minute_average = models.FloatField(blank=True)
 
     def __str__(self):
-        return self.timestamp
+        return str(self.timestamp)

@@ -1,6 +1,7 @@
 import json, topics, madeup, time, logging
 import paho.mqtt.client as mqtt
 from datetime import datetime
+from .models import Client, DataOutput
 
 
 # Root log handler. Good practice would be to push any logs from the 
@@ -9,6 +10,10 @@ logging.basicConfig(filename='logs/client2.log', level=logging.INFO,
                     format='%(levelname)s:%(message)s')
 
 message_log = {}
+
+
+CLIENT_NAME = 'c80dd6b0-e459-4609-90dd-05341ef5ad4c'
+client_instance = Client.objects.get(client_name=CLIENT_NAME)
 
 # Here are the functions for calculating the average value
 # from a client over 1 minute, 5 minutes, and 30 minutes.
@@ -83,20 +88,29 @@ def on_log(client, userdata, level, buf):
 # device the message is coming from.
 def on_message(client, userdata, msg):
     message_log[int(datetime.now().strftime("%H%M%S%f"))] = int(msg.payload)
-    averages = {
-        'client': madeup.client1,
-        'timestamp': datetime.now().strftime("%H%M%S%f"),
-        'current': list(message_log.values())[-1],
-        '1-minute-average': one_minute_averages(),
-        '5-minute-average': five_minute_averages(),
-        '30-minute-average': thirty_minute_averages()
-    }
-    client.publish(
-        topics.energy[2],
-        payload=json.dumps(averages, indent=4),
-        qos=0,
-        retain=True
-        )
+    data = DataOutput(
+        client_id = client_instance,
+        timestamp = datetime.now().strftime("%H%M%S%f"),
+        current_value = list(message_log.values())[-1],
+        one_minute_average = one_minute_averages(),
+        five_minute_average = five_minute_averages(),
+        thirty_minute_average = thirty_minute_averages()
+    )
+    data.save()
+    # averages = {
+    #     'client': madeup.client1,
+    #     'timestamp': datetime.now().strftime("%H%M%S%f"),
+    #     'current': list(message_log.values())[-1],
+    #     '1-minute-average': one_minute_averages(),
+    #     '5-minute-average': five_minute_averages(),
+    #     '30-minute-average': thirty_minute_averages()
+    # }
+    # client.publish(
+    #     topics.energy[2],
+    #     payload=json.dumps(averages, indent=4),
+    #     qos=0,
+    #     retain=True
+    #     )
    
 # Define the client instance.
 client = mqtt.Client(

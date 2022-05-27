@@ -22,11 +22,11 @@
             <th>30min</th>
         </tr>
         <tr>
-            <td id="timestamp">{timestamp}</td>
-            <td id="current">{current}</td>
-            <td id="1min">{ one_min_avg }</td>
-            <td id="5min">{ five_min_avg }</td>
-            <td id="30min">{ thirty_min_avg }</td>
+            <td id="timestamp">{{ data.timestamp }}</td>
+            <td id="current">{{ data.current_value }}</td>
+            <td id="1min">{{ data.one_minute_average }}</td>
+            <td id="5min">{{ data.five_minute_average }}</td>
+            <td id="30min">{{ data.thirty_minute_average }}</td>
         </tr>
     </table>
     <textarea id="client-log" cols="100" rows="20"></textarea><br>
