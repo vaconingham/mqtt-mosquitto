@@ -5,3 +5,4 @@ config/
 manage.py
 db.sqlite3
 index.js
+node

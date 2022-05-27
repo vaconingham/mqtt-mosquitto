@@ -1,4 +1,4 @@
-import json, topics, test, time, logging
+import json, topics, madeup, time, logging
 import paho.mqtt.client as mqtt
 from datetime import datetime
 
@@ -86,7 +86,7 @@ def on_log(client, userdata, level, buf):
 def on_message(client, userdata, msg):
     message_log[int(datetime.now().strftime("%H%M%S%f"))] = int(msg.payload)
     averages = {
-        'client': test.client1,
+        'client': madeup.client1,
         'timestamp': datetime.now().strftime("%H%M%S%f"),
         '1-minute-average': one_minute_averages(),
         '5-minute-average': five_minute_averages(),
@@ -101,7 +101,7 @@ def on_message(client, userdata, msg):
    
 # Define the client instance.
 client = mqtt.Client(
-    client_id=test.client2,
+    client_id=madeup.client2,
     clean_session=False,
     userdata=None,
     protocol=mqtt.MQTTv311,
@@ -109,7 +109,7 @@ client = mqtt.Client(
     )
 
 # Connect the client to the broker.
-client.connect(test.broker, 1883)
+client.connect(madeup.broker, 1883)
 
 # Activate callbacks - Comment out as necessary.
 client.on_connect = on_connect
