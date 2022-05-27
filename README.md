@@ -4,7 +4,13 @@
 
 This is a work in progress of a Django MQTT Service using a Mosquitto broker and Django Channels.
 
-### Important Notes
+The broker service is a Eclipse Mosquitto broker, which is running inside a Docker container. The Django application serves gives users a UI to visualise MQTT clients connected to the broker.
+
+The UI does two things:
+1. Collects data from clients publishing to restricted topics on the MQTT broker.
+2. Django allows users to visualise information through a simple UI about each client connected within the IoT.
+
+<!-- ### Important Notes
 For the purpose of simplicity, this project does not have isolated environments i.e. development, staging, and production.
 
 Ideally, each environment should be in their own AWS account with their own IAM. These accounts should be children of the main account, making it easy to consolidate tasks, billing, permissions, and more.
@@ -36,4 +42,4 @@ Server requires configuring for CI/CD with Ansible.
 
 1. Clone the `prod` branch.
 2. Make a pull request to the `dev` branch.
-3. Be verbose, specific, and generous with your commentary.
+3. Be verbose, specific, and generous with your commentary. -->

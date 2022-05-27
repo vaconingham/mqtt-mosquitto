@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Client</title>
+</head>
+<body>
+    <textarea id="client-log" cols="100" rows="20"></textarea><br>
+    <input id="client-message-input" type="text" size="100"><br>
+    <input id="client-message-submit" type="button" value="Send">
+    {{ client_name|json_script:"client-name" }}
+    <script>
+        const clientName = JSON.parse(document.getElementById('client-name').textContent);
+
+        const clientSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/client/'
+            + clientName
+            + '/'
+        );
+
+        clientSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            document.querySelector('#client-log').value += (data.message + '\n');
+        };
+
+        clientSocket.onclose = function(e) {
+            console.error('client socket closed unexpectedly');
+        };
+
+        document.querySelector('#client-message-input').focus();
+        document.querySelector('#client-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#client-message-submit').click();
+            }
+        };
+
+        document.querySelector('#client-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#client-message-input');
+            const message = messageInputDom.value;
+            clientSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+    </script>
+</body>
+</html>
