@@ -49,7 +49,7 @@ client.connect(madeup.broker, 1883, 5)
 
 # Comment out callbacks as necessary.
 client.on_connect = on_connect
-client.on_log = on_log
+# client.on_log = on_log
 client.on_message = on_message
 
 # This is here to give time to for the client to connect before tryying to process data.

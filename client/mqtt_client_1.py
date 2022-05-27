@@ -72,13 +72,11 @@ def on_connect(client, userdata, flags, rc):
         print("Connection failed - Unknown | RESULT CODE: Undefined")
 
 def on_publish(client, userdata, mid):
-        print('Published: ' + str(mid))
-        logging.info(str(str(mid)))
+        logging.info('PUBLISHED PAYLOAD: ' + str(mid))
 
 # The callback for when a LOG message is received from the server.
 def on_log(client, userdata, level, buf):
-    print('log: ' + str(buf))
-    logging.info(str(buf))
+    logging.info('LOG: ' + str(buf))
 
 # Encryption and decryption required.
 # Client ID requires configuration so that subscriber knows which
@@ -114,7 +112,7 @@ client.connect(madeup.broker, 1883)
 
 # Activate callbacks - Comment out as necessary.
 client.on_connect = on_connect
-client.on_log = on_log
+# client.on_log = on_log
 client.on_message = on_message
 client.on_publish = on_publish
 

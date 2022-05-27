@@ -9,26 +9,29 @@
 </head>
 <body>
     <h1>Droplet Information</h1>
-    <h2>Droplet ID - Droplet Name</h2>
+    <h2>Droplet ID: {{ client.client_name }}</h2>
+    <p>S/N: {{ client.client_serial_number }}</p>
     <h3>Moving Averages</h3>
     <canvas id="dropletBarChart" style="width:100%;max-width:700px"></canvas>
     <table>
         <tr>
             <th>Timestamp</th>
+            <th>Current</th>
             <th>1min</th>
             <th>5min</th>
             <th>30min</th>
         </tr>
         <tr>
             <td id="timestamp">{timestamp}</td>
+            <td id="current">{current}</td>
             <td id="1min">{ one_min_avg }</td>
             <td id="5min">{ five_min_avg }</td>
             <td id="30min">{ thirty_min_avg }</td>
         </tr>
     </table>
     <textarea id="client-log" cols="100" rows="20"></textarea><br>
-    <input id="client-message-input" type="text" size="100"><br>
-    <input id="client-message-submit" type="button" value="Send">
+    <!-- <input id="client-payload-input" type="text" size="100"><br> -->
+    <!-- <input id="client-payload-submit" type="button" value="Send"> -->
     {{ client_name|json_script:"client-name" }}
     <script>
         const clientName = JSON.parse(document.getElementById('client-name').textContent);
@@ -43,32 +46,31 @@
 
         clientSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#client-log').value += (data.message + '\n');
+            document.querySelector('#client-log').value += (data.payload + '\n');
         };
 
         clientSocket.onclose = function(e) {
             console.error('client socket closed unexpectedly');
         };
 
-        document.querySelector('#client-message-input').focus();
-        document.querySelector('#client-message-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#client-message-submit').click();
-            }
-        };
+        // document.querySelector('#client-payload-input').focus();
+        // document.querySelector('#client-payload-input').onkeyup = function(e) {
+        //     if (e.keyCode === 13) {  // enter, return
+        //         document.querySelector('#client-payload-submit').click();
+        //     }
+        // };
 
-        document.querySelector('#client-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#client-message-input');
-            const message = messageInputDom.value;
-            clientSocket.send(JSON.stringify({
-                'message': message
-            }));
-            messageInputDom.value = '';
-        };
-    </script>
-    <script>
-        let xValues = ["1min", "5min", "30min"];
-        let yValues = [40, 50, 60];
+        // document.querySelector('#client-payload-submit').onclick = function(e) {
+        //     const payloadInputDom = document.querySelector('#client-payload-input');
+        //     const payload = payloadInputDom.value;
+        //     clientSocket.send(JSON.stringify({
+        //         'payload': payload
+        //     }));
+        //     payloadInputDom.value = '';
+        // };
+
+        let xValues = ["current", "1min", "5min", "30min"];
+        let yValues = [55, 40, 50, 60]; // Values to be popualted here.
         let barColors = "red";
 
         const barChart = new Chart("dropletBarChart", {

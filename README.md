@@ -43,3 +43,16 @@ Server requires configuring for CI/CD with Ansible.
 1. Clone the `prod` branch.
 2. Make a pull request to the `dev` branch.
 3. Be verbose, specific, and generous with your commentary. -->
+
+
+index.html
+    - client1 client_id (IF EXISTS)
+        -> client.html
+            - GET client_id
+            - RUN client2, client3
+            - GET client3 data
+                - timestamp
+                - current
+                - 1min
+                - 5min
+                - 30min
