@@ -1,4 +1,4 @@
-"""The testing module provides variables that can be used in development, 
+"""This madeup file provides variables that can be used in development, 
 and helps us identify variables that need to be replaced
 by real variables before pushing to staging or production."""
 
