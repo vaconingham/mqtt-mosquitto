@@ -29,29 +29,29 @@
             <td id="30min">{{ data.thirty_minute_average }}</td>
         </tr>
     </table>
-    <textarea id="client-log" cols="100" rows="20"></textarea><br>
+    <!-- <textarea id="client-log" cols="100" rows="20"></textarea><br> -->
     <!-- <input id="client-payload-input" type="text" size="100"><br> -->
     <!-- <input id="client-payload-submit" type="button" value="Send"> -->
     {{ client_name|json_script:"client-name" }}
     <script>
         const clientName = JSON.parse(document.getElementById('client-name').textContent);
 
-        const clientSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/client/'
-            + clientName
-            + '/'
-        );
+        // const clientSocket = new WebSocket(
+        //     'ws://'
+        //     + window.location.host
+        //     + '/ws/client/'
+        //     + clientName
+        //     + '/'
+        // );
 
-        clientSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            document.querySelector('#client-log').value += (data.payload + '\n');
-        };
+        // clientSocket.onmessage = function(e) {
+        //     const data = JSON.parse(e.data);
+        //     document.querySelector('#client-log').value += (data.payload + '\n');
+        // };
 
-        clientSocket.onclose = function(e) {
-            console.error('client socket closed unexpectedly');
-        };
+        // clientSocket.onclose = function(e) {
+        //     console.error('The socket closed as expected.');
+        // };
 
         // document.querySelector('#client-payload-input').focus();
         // document.querySelector('#client-payload-input').onkeyup = function(e) {

@@ -1,6 +1,6 @@
 from doctest import OutputChecker
 from django.shortcuts import get_object_or_404, render
-import client
+from . import client
 
 from .models import Client, DataOutput
 

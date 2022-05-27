@@ -10,6 +10,7 @@ logging.basicConfig(filename='logs/client1.log', level=logging.INFO,
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
+        client.subscribe('site/in/solar')
         print("Connected | RESULT CODE:"+str(rc))
         logging.info("Connected | RESULT CODE:"+str(rc))
     elif rc ==1:
@@ -33,12 +34,12 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a LOG message is received from the server.
 def on_log(client, userdata, level, buf):
-    print('log: ' + str(buf))
+    print('Published: RANDINT at ' + datetime.datetime.now().strftime("%H%M%S%f"))
 
 # Log published data.
 def on_publish(client, userdata, mid):
-    print('publish: RANDINT ' + str(mid))
-    logging.info('publish: RANDINT ' + str(mid))
+    print('Published: RANDINT at ' + datetime.datetime.now().strftime("%H%M%S%f"))
+    # logging.info('publish: RANDINT ' + str(mid))
 
 # Define the client instance.
 client = mqtt.Client(
@@ -65,12 +66,12 @@ time.sleep(4)
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
-client.loop_forever()
+client.loop_start()
 
 # Publish random values between 1-100 to the broker at random intervals between 1-30 seconds.
 while True:
     client.publish(
-        topics.energy[1],
+        'site/in',
         payload=str(random.randint(1,100)),
         qos=0,
         retain=True

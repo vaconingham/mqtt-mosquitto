@@ -1,12 +1,12 @@
-import json, topics, madeup, time, logging
+import time, logging
 import paho.mqtt.client as mqtt
 from datetime import datetime
-from .models import Client, DataOutput
+from client.models import Client, DataOutput
 
 
 # Root log handler. Good practice would be to push any logs from the 
 # client to a specific log files. Further configuration required. 
-logging.basicConfig(filename='logs/client2.log', level=logging.INFO,
+logging.basicConfig(filename='logs/client.log', level=logging.INFO,
                     format='%(levelname)s:%(message)s')
 
 message_log = {}
@@ -61,7 +61,7 @@ def thirty_minute_averages():
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        client.subscribe(topics.energy[1])
+        client.subscribe('site/in/solar')
         print("Connected | RESULT CODE:"+str(rc))
     elif rc ==1:
         print("Connection failed – Incorrect protocol version | RESULT CODE: " + str(rc))
@@ -114,7 +114,7 @@ def on_message(client, userdata, msg):
    
 # Define the client instance.
 client = mqtt.Client(
-    client_id=madeup.client2,
+    client_id=CLIENT_NAME,
     clean_session=False,
     userdata=None,
     protocol=mqtt.MQTTv311,
@@ -122,7 +122,7 @@ client = mqtt.Client(
     )
 
 # Connect the client to the broker.
-client.connect(madeup.broker, 1883)
+client.connect('localhost', 1883)
 
 # Activate callbacks - Comment out as necessary.
 client.on_connect = on_connect
@@ -134,4 +134,4 @@ client.on_publish = on_publish
 # The more efficient way would be to use a flag on_connect.
 time.sleep(4)
 
-client.loop_forever()
+client.loop_start()

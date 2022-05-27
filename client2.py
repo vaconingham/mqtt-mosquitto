@@ -56,7 +56,7 @@ def thirty_minute_averages():
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        client.subscribe(topics.energy[1])
+        client.subscribe('site/in/solar')
         print("Connected | RESULT CODE:"+str(rc))
     elif rc ==1:
         print("Connection failed – Incorrect protocol version | RESULT CODE: " + str(rc))
@@ -73,12 +73,10 @@ def on_connect(client, userdata, flags, rc):
 
 def on_publish(client, userdata, mid):
         print('Published: ' + str(mid))
-        logging.info(str(str(mid)))
 
 # The callback for when a LOG message is received from the server.
 def on_log(client, userdata, level, buf):
     print('log: ' + str(buf))
-    logging.info(str(buf))
 
 # Encryption and decryption required.
 # Client ID requires configuration so that subscriber knows which
@@ -94,11 +92,12 @@ def on_message(client, userdata, msg):
         '30-minute-average': thirty_minute_averages()
     }
     client.publish(
-        topics.energy[2],
+        'site/in/solar/data',
         payload=json.dumps(averages, indent=4),
         qos=0,
         retain=True
         )
+    print(message_log)
    
 # Define the client instance.
 client = mqtt.Client(

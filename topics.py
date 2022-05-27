@@ -1,7 +1,7 @@
 energy = [
     'site/in',
     'site/in/solar',
-    'site/in/solar/avg',
+    'site/in/solar/data',
     'site/in/grid',
     'site/in/generator',
     'site/out',

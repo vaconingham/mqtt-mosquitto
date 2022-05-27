@@ -35,7 +35,7 @@ def on_message(client, userdata, msg):
     message = json.loads(payload.decode('utf_8'))
     for i in message.items():
         message_log.update({i})
-    logging.info(message)
+    print(message)
 
 client = mqtt.Client(
     client_id=madeup.client3,
