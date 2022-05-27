@@ -1,4 +1,4 @@
-import topics, time, random, test, logging
+import topics, time, random, madeup, logging, datetime
 import paho.mqtt.client as mqtt
 
 
@@ -7,10 +7,10 @@ import paho.mqtt.client as mqtt
 logging.basicConfig(filename='logs/client1.log', level=logging.INFO,
                     format='%(levelname)s:%(message)s')
 
-
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
+        client.connected_flag = True
         print("Connected | RESULT CODE:"+str(rc))
     elif rc ==1:
         print("Connection failed – Incorrect protocol version | RESULT CODE: " + str(rc))
@@ -35,7 +35,7 @@ def on_publish(client, userdata, mid):
 
 # Define the client instance.
 client = mqtt.Client(
-    client_id=test.client1,
+    client_id=madeup.client1,
     clean_session=True,
     userdata=None,
     protocol=mqtt.MQTTv311,
@@ -43,7 +43,7 @@ client = mqtt.Client(
     )
 
 # Connect the client to the broker.
-client.connect(test.broker, 1883)
+client.connect(madeup.broker, 1883)
 
 # Activate callbacks - Comment out as necessary.
 client.on_connect = on_connect
@@ -58,7 +58,8 @@ time.sleep(4)
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
-client.loop_start()
+client.loop_forever()
+
 # Publish random values between 1-100 to the broker at random intervals between 1-30 seconds.
 while True:
     client.publish(

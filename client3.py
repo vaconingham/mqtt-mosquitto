@@ -1,14 +1,12 @@
 from distutils.log import INFO
 import paho.mqtt.client as mqtt
-import test, topics, time, json, logging
-from prettytable import PrettyTable
+import madeup, topics, time, json, logging
 
 # Root log handler. Good practice would be to push any logs from the 
 # client to a specific log files. Further configuration required. 
 logging.basicConfig(filename='logs/client3.log', level=logging.INFO,
                     format='%(levelname)s:%(message)s')
 
-table = PrettyTable()
 message_log = {}
 
 def on_connect(client, userdata, flags, rc):
@@ -35,18 +33,18 @@ def on_message(client, userdata, msg):
     payload = msg.payload
     message = json.loads(payload.decode('utf_8'))
     for i in message.items():
-        message_log.append({i})
+        message_log.update({i})
     logging.info(message)
 
 client = mqtt.Client(
-    client_id=test.client3,
+    client_id=madeup.client3,
     clean_session=False,
     userdata=None,
     protocol=mqtt.MQTTv311,
     transport='tcp'
     )
 
-client.connect(test.broker, 1883, 5)
+client.connect(madeup.broker, 1883, 5)
 
 # Comment out callbacks as necessary.
 client.on_connect = on_connect
