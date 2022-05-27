@@ -1,8 +1,8 @@
-# MQTT Service
+# Django MQTT Service
 
 ### Overview
 
-This is an example of a production ready MQTT service written in Python with a Eclipse Mosquitto broker running inside a Docker cotainer.
+This is a work in progress of a Django MQTT Service using a Mosquitto broker and Django Channels.
 
 ### Important Notes
 For the purpose of simplicity, this project does not have isolated environments i.e. development, staging, and production.
