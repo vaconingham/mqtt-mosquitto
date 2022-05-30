@@ -3,7 +3,6 @@ logs/
 db.sqlite3
 index.js
 node
-index.html
 client1.py
 client2.py
 client3.py
