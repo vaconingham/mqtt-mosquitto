@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Client</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            }
+    </style>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+</head>
+<body>
+    <h1>Droplet Information</h1>
+    <h2>Droplet ID: {{ client.client_name }}</h2>
+    <p>S/N: {{ client.client_serial_number }}</p>
+    <h3>Moving Averages</h3>
+    <canvas id="dropletBarChart" style="width:100%;max-width:700px"></canvas>
+    <table style="padding-top: 2em">
+        <tr>
+            <th style="padding-right: 4em">Timestamp</th>
+            <th style="padding-right: 4em">Current</th>
+            <th style="padding-right: 4em">1min</th>
+            <th style="padding-right: 4em">5min</th>
+            <th style="padding-right: 4em">30min</th>
+        </tr>
+        <tr>
+            <td id="timestamp">{{ data.timestamp }}</td>
+            <td id="current">{{ data.current_value }}</td>
+            <td id="1min">{{ data.one_minute_average }}</td>
+            <td id="5min">{{ data.five_minute_average }}</td>
+            <td id="30min">{{ data.thirty_minute_average }}</td>
+        </tr>
+    </table>
+    <!-- <textarea id="client-log" cols="100" rows="20"></textarea><br> -->
+    <!-- <input id="client-payload-input" type="text" size="100"><br> -->
+    <!-- <input id="client-payload-submit" type="button" value="Send"> -->
+    {{ client_name|json_script:"client-name" }}
+    <script>
+        const clientName = JSON.parse(document.getElementById('client-name').textContent);
+
+        // const clientSocket = new WebSocket(
+        //     'ws://'
+        //     + window.location.host
+        //     + '/ws/client/'
+        //     + clientName
+        //     + '/'
+        // );
+
+        // clientSocket.onmessage = function(e) {
+        //     const data = JSON.parse(e.data);
+        //     document.querySelector('#client-log').value += (data.payload + '\n');
+        // };
+
+        // clientSocket.onclose = function(e) {
+        //     console.error('The socket closed as expected.');
+        // };
+
+        // document.querySelector('#client-payload-input').focus();
+        // document.querySelector('#client-payload-input').onkeyup = function(e) {
+        //     if (e.keyCode === 13) {  // enter, return
+        //         document.querySelector('#client-payload-submit').click();
+        //     }
+        // };
+
+        // document.querySelector('#client-payload-submit').onclick = function(e) {
+        //     const payloadInputDom = document.querySelector('#client-payload-input');
+        //     const payload = payloadInputDom.value;
+        //     clientSocket.send(JSON.stringify({
+        //         'payload': payload
+        //     }));
+        //     payloadInputDom.value = '';
+        // };
+
+        let timestamp = document.getElementById('timestamp').innerHTML;
+        let current = document.getElementById('current').innerHTML;
+        let one = document.getElementById('1min').innerHTML;
+        let five = document.getElementById('5min').innerHTML;
+        let thirty = document.getElementById('30min').innerHTML;
+
+        let xValues = ["current", "1min", "5min", "30min"];
+        let yValues = [current, one, five, thirty]; // Values to be popualted here.
+        let barColors = "red";
+
+        const barChart = new Chart("dropletBarChart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {}
+            });
+    </script>
+</body>
+</html>
