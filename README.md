@@ -18,16 +18,16 @@ Ideally, each environment should be in their own AWS account with their own IAM.
 
 ### How to get it working:
 
-1. Start the Eclipse Mosquitto broker:
+1. Start the Eclipse Mosquitto broker using Docker:
 
 `docker run -it -d -p 1883:1883 -p 9001:9001 -v home/dev/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
 
-1. If you haven't done so already, create a folder for your logs in your working directory: `mkdir logs`
-2. To test the MQTT service, run the "mock" mqtt client: `python3 test_client.py`
-3. Configure Django i.e. makemigrations, migrate, createsuperuser.
-4. Start the Django server: `python3 manage.py runserver`
-5. Ensure logs are working correctly. This can be either seeing output in log files or in the console.
-6. Visit 127.0.0.1 and enter the client ID or click "Test Service" to test if the MQTT service is working.
+2. If you haven't done so already, create a folder for your logs in your working directory: `mkdir logs`
+3. To test the MQTT service, run the "mock" mqtt client: `python3 test_client.py`
+4. Configure Django i.e. makemigrations, migrate, createsuperuser.
+5. Start the Django server: `python3 manage.py runserver`
+6. Ensure logs are working correctly. This can be either seeing output in log files or in the console.
+7. Visit 127.0.0.1 and enter the client ID or click "Test Service" to test if the MQTT service is working.
 
 ### Important Notes: 
 - Further development and configuration is required. Current broker does not have SSL enabled, client authentication, messages are unencrypted, and no data, log, or PID files have been created.
