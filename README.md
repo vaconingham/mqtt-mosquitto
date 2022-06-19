@@ -44,10 +44,9 @@ Ideally, each environment should be in their own AWS account with their own IAM.
 - Moving averages functions divide by zero. As there is no exception handling, the code breaks.
 - Broker requires user authentication and SSL.
 - Files should be imported as modules and called from one main file.
-- Logs need configured properly.
+- Logs need to be configured properly.
 
 ### Contributing
 
 1. Clone the `prod` branch.
 2. Make a pull request to the `dev` branch.
-3. Be verbose, specific, and generous with your commentary.
