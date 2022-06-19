@@ -1,0 +1,27 @@
+<!-- chat/templates/chat/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Clients</title>
+</head>
+<body>
+    What chat client would you like to enter?<br>
+    <input id="client-name-input" type="text" size="100"><br>
+    <input id="client-name-submit" type="button" value="Enter">
+
+    <script>
+        document.querySelector('#client-name-input').focus();
+        document.querySelector('#client-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#client-name-submit').click();
+            }
+        };
+
+        document.querySelector('#client-name-submit').onclick = function(e) {
+            var clientName = document.querySelector('#client-name-input').value;
+            window.location.pathname = '/client/' + clientName + '/';
+        };
+    </script>
+</body>
+</html>
