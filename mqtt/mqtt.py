@@ -1,27 +1,25 @@
-import time, logging
+import time
+import logging
 import paho.mqtt.client as mqtt
 from datetime import datetime
-from client.models import Client, DataOutput
+from .models import Client, DataOutput
 
 
 # Root log handler. Good practice would be to push any logs from the 
 # client to a specific log files. Further configuration required. 
-logging.basicConfig(filename='logs/client.log', level=logging.INFO,
+logging.basicConfig(filename='logs/mqtt.log', level=logging.INFO,
                     format='%(levelname)s:%(message)s')
 
 message_log = {}
 
 
-CLIENT_NAME = 'c80dd6b0-e459-4609-90dd-05341ef5ad4c'
+CLIENT_NAME = 'test'
 client_instance = Client.objects.get(client_name=CLIENT_NAME)
 
-# Here are the functions for calculating the average value
-# from a client over 1 minute, 5 minutes, and 30 minutes.
-# With a little more effort you could reduce these down to make
-# the them more flexible and easier to use.
+
 # Division by zero is still a problem.
-def one_minute_averages():
-    window = int(datetime.now().strftime("%H%M%S%f")) - 100000000
+def averages(min):
+    window = int(datetime.now().strftime("%H%M%S%f")) - min
     history = {}
     for i in message_log.items():
         if i[0] >= window:
@@ -35,51 +33,27 @@ def one_minute_averages():
     else:
         return avg
 
-def five_minute_averages():
-    window = int(datetime.now().strftime("%H%M%S%f")) - 500000000
-    history = {k:v for k,v in message_log.items() if k >= window}
-    for i in list(history):
-        if i < window:
-            history.pop(i)
-    avg = sum(history.values()) / len(list(history))
-    if avg == 0:
-        return 0
-    else:
-        return avg
-
-def thirty_minute_averages():
-    window = int(datetime.now().strftime("%H%M%S%f")) - 3000000000
-    history = {k:v for k,v in message_log.items() if k >= window}
-    for i in list(history):
-        if i < window:
-            history.pop(i)
-    avg = sum(history.values()) / len(list(history))
-    if avg == 0:
-        return 0
-    else:
-        return avg
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         client.subscribe('site/in/solar')
-        print("Connected | RESULT CODE:"+str(rc))
+        print("Started MQTT Service")
     elif rc ==1:
-        print("Connection failed – Incorrect protocol version | RESULT CODE: " + str(rc))
+        print("MQTT Connection failed – Incorrect protocol version | RESULT CODE: " + str(rc))
     elif rc ==2:
-        print("Connection failed – Invalid client identifier | RESULT CODE: " + str(rc))
+        print("MQTT Connection failed – Invalid client identifier | RESULT CODE: " + str(rc))
     elif rc ==3:
-        print("Connection failed – Server error | RESULT CODE: " + str(rc))
+        print("MQTT Connection failed – Server error | RESULT CODE: " + str(rc))
     elif rc ==4:
-        print("Connection failed – Bad username or password | RESULT CODE: " + str(rc))
+        print("MQTT Connection failed – Bad username or password | RESULT CODE: " + str(rc))
     elif rc ==5:
-        print("Connection failed – Not authorised | RESULT CODE: " + str(rc))
+        print("MQTT Connection failed – Not authorised | RESULT CODE: " + str(rc))
     else:
-        print("Connection failed - Unknown | RESULT CODE: Undefined")
+        print("MQTT Connection failed - Unknown | RESULT CODE: Undefined")
 
 def on_publish(client, userdata, mid):
-        logging.info('PUBLISHED PAYLOAD: ' + str(mid))
+    logging.info('PUBLISHED PAYLOAD: ' + str(mid))
 
-# The callback for when a LOG message is received from the server.
 def on_log(client, userdata, level, buf):
     logging.info('LOG: ' + str(buf))
 
@@ -92,9 +66,9 @@ def on_message(client, userdata, msg):
         client_id = client_instance,
         timestamp = datetime.now().strftime("%H%M%S%f"),
         current_value = list(message_log.values())[-1],
-        one_minute_average = one_minute_averages(),
-        five_minute_average = five_minute_averages(),
-        thirty_minute_average = thirty_minute_averages()
+        one_minute_average = averages(100000000),
+        five_minute_average = averages(500000000),
+        thirty_minute_average = averages(3000000000),
     )
     data.save()
     # averages = {
@@ -112,16 +86,15 @@ def on_message(client, userdata, msg):
     #     retain=True
     #     )
    
-# Define the client instance.
+
 client = mqtt.Client(
-    client_id=CLIENT_NAME,
+    client_id='test-service',
     clean_session=False,
     userdata=None,
     protocol=mqtt.MQTTv311,
     transport='tcp'
     )
 
-# Connect the client to the broker.
 client.connect('localhost', 1883)
 
 # Activate callbacks - Comment out as necessary.

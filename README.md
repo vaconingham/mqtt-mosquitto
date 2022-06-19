@@ -1,14 +1,11 @@
 # Django MQTT Service
 
-### News
-
-This project was recently created using Django. Visit the `django-implementation` branch for more information.
 
 ### Overview
 
-This is a work in progress of a Django MQTT Service using a Mosquitto broker and Django Channels.
+This is an example MQTT service using Djago.
 
-The broker service is a Eclipse Mosquitto broker, which is running inside a Docker container. The Django application serves gives users a UI to visualise MQTT clients connected to the broker.
+The broker service is a Eclipse Mosquitto broker, which is running inside a Docker container. The Django application serves a UI for users to visualise information about MQTT clients connected to the broker.
 
 The UI does two things:
 1. Collects data from clients publishing to restricted topics on the MQTT broker.
@@ -26,7 +23,7 @@ Ideally, each environment should be in their own AWS account with their own IAM.
 `docker run -it -d -p 1883:1883 -p 9001:9001 -v home/dev/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
 
 2. If you haven't done so already, create a folder for your logs in your working directory: `mkdir logs`
-2. Run the "mock" MQTT client: `python3 test_client.py`
+2. Run the "mock" mqtt client to test the mqtt service: `python3 test_client.py`
 3. Start the Django server: `python3 manage.py runserver`
 4. Ensure logs are working correctly. This can be either seeing output in log files or in the console.
 5. Visit 127.0.0.1/client and enter the client_name, which can be found in the Django admin console or in the test_client.py file.
