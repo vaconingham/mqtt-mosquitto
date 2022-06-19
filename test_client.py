@@ -1,13 +1,20 @@
-import time, random, logging, datetime
+"""This is a 'mock' client that we can use to test our MQTT service. The client 
+publishes random values between 1-100 to the broker at random intervals between 1-30 seconds.
+
+The print functions have been left in place so that in development you can easily check if the test_client
+is working."""
+
+import time
+import random
+import logging
+import datetime
 import paho.mqtt.client as mqtt
 
 
-# Root log handler. Good practice would be to push any logs from the 
-# client to a specific log files. Further configuration required. 
 logging.basicConfig(filename='logs/test_client.log', level=logging.INFO,
                     format='%(levelname)s:%(message)s')
 
-# The callback for when the client receives a CONNACK response from the server.
+
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("Connected | RESULT CODE:"+str(rc))
@@ -31,37 +38,29 @@ def on_connect(client, userdata, flags, rc):
         print("Connection failed - Unknown | RESULT CODE: Undefined")
         logging.error("Connection failed - Unknown | RESULT CODE: Undefined")
 
-# Log published data.
 def on_publish(client, userdata, mid):
-    print('Published: RANDINT at ' + datetime.datetime.now().strftime("%H:%M:%S:%f"))
+    print('TEST_CLIENT Published: RANDINT at ' + datetime.datetime.now().strftime("%H:%M:%S:%f"))
     logging.info('Published: RANDINT at ' + datetime.datetime.now().strftime("%H:%M:%S:%f") + ' | mid: ' + str(mid))
 
-# Define the client instance.
 client = mqtt.Client(
-    client_id='c80dd6b0-e459-4609-90dd-05341ef5ad4c',
+    client_id='test',
     clean_session=True,
     userdata=None,
     protocol=mqtt.MQTTv311,
     transport='tcp'
     )
 
-# Connect the client to the broker.
 client.connect('localhost', 1883)
 
 client.on_connect = on_connect
 client.on_publish = on_publish
 
-# This is here to give time to for the client to connect before tryying to process data.
+# This is here to give time to for the client to connect before trying to process data.
 # The more efficient way would be to use a flag on_connect.
 time.sleep(4)
 
-# Blocking call that processes network traffic, dispatches callbacks and
-# handles reconnecting.
-# Other loop*() functions are available that give a threaded interface and a
-# manual interface.
 client.loop_start()
 
-# Publish random values between 1-100 to the broker at random intervals between 1-30 seconds.
 while True:
     client.publish(
         'site/in/solar',

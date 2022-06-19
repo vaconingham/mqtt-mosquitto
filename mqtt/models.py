@@ -1,11 +1,13 @@
 from django.db import models
-import uuid
 
-def new_uuid():
-    return uuid.uuid4()
 
 class Client(models.Model):
-    client_name = models.UUIDField(primary_key=True, default=new_uuid, blank=False, unique=True)
+    client_name = models.CharField(
+        primary_key=True, 
+        max_length=255, 
+        blank=False, 
+        unique=True
+        )
     clean_session = models.BooleanField(default=True)
     userdata = models.CharField(default='none', max_length=1024, blank=True)
     client_description = models.CharField(max_length=1024, blank=True)
@@ -17,7 +19,13 @@ class Client(models.Model):
 
 
 class DataOutput(models.Model):
-    client_id = models.ForeignKey(Client, related_name='data_output', on_delete=models.CASCADE, blank=True)
+    client_id = models.ForeignKey(
+        Client, 
+        related_name='data_output', 
+        on_delete=models.CASCADE, 
+        blank=True, 
+        editable=False
+        )
     timestamp = models.DateTimeField(auto_now_add=True)
     current_value = models.FloatField(blank=True)
     one_minute_average = models.FloatField(blank=True)
