@@ -1,6 +1,7 @@
 .DS_Store
-migrations/
-logs/
+DS_Store
+migrations/*
+logs/*
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/django

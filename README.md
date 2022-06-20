@@ -16,13 +16,14 @@ The UI does two primary things:
 
 1. Start the Eclipse Mosquitto broker using Docker:
 
-`docker run -it -d -p 1883:1883 -p 9001:9001 -v home/mqtt-mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
+`docker run -it -d -p 1883:1883 -p 9001:9001 -v path/to/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
 
-2. If you haven't done so already, create a folder for your logs in your working directory: `mkdir logs`
-3. To test the MQTT service, run the test client: `python3 test_client.py`
-4. Configure Django i.e. makemigrations, migrate, createsuperuser.
-5. Start the Django server: `python3 manage.py runserver`
-8. Visit 127.0.0.1 and enter the client ID or click "Test Service" to test if the MQTT service is working.
+2. To test the MQTT service, run the test client: `python3 test_client.py`
+3. To configure Django, comment out the mqtt import and the client function in mqtt/views.py. Then run makemigrations, migrate, createsuperuser.
+4. Start the Django server: `python3 manage.py runserver`
+5. Go to the admin dashboard and create two Clients called 'test' and 'data-service'.
+6. Uncomment the mqtt import and client function in mqtt/views.py.
+7. Restart the development server and visit 127.0.0.1 and click "Test Service" to test if the MQTT service is working correctly.
 
 ### Important Notes: 
 - Further development and configuration is required. Current broker does not have SSL enabled, client authentication, messages are unencrypted, and no data, log, or PID files have been created.
