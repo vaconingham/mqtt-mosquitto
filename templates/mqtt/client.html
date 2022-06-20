@@ -27,16 +27,14 @@
             <th style="padding-right: 4em">30min</th>
         </tr>
         <tr>
-            <td id="timestamp">{{ data.timestamp }}</td>
+            <td id="timestamp">{{ data.data_timestamp }}</td>
             <td id="current">{{ data.current_value }}</td>
             <td id="1min">{{ data.one_minute_average }}</td>
             <td id="5min">{{ data.five_minute_average }}</td>
             <td id="30min">{{ data.thirty_minute_average }}</td>
         </tr>
     </table>
-    <!-- <textarea id="client-log" cols="100" rows="20"></textarea><br> -->
-    <!-- <input id="client-payload-input" type="text" size="100"><br> -->
-    <!-- <input id="client-payload-submit" type="button" value="Send"> -->
+
     {{ client_name|json_script:"client-name" }}
     <script>
         const clientName = JSON.parse(document.getElementById('client-name').textContent);

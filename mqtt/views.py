@@ -1,6 +1,6 @@
 # from doctest import OutputChecker
 from django.shortcuts import get_object_or_404, render
-from . import mqtt as client
+from . import mqtt
 from .models import Client, DataOutput
 
 
