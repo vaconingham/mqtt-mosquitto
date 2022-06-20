@@ -16,7 +16,7 @@ The UI does two primary things:
 
 1. Start the Eclipse Mosquitto broker using Docker:
 
-`docker run -it -d -p 1883:1883 -p 9001:9001 -v home/dev/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
+`docker run -it -d -p 1883:1883 -p 9001:9001 -v home/mqtt-mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
 
 2. If you haven't done so already, create a folder for your logs in your working directory: `mkdir logs`
 3. To test the MQTT service, run the test client: `python3 test_client.py`
