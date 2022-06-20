@@ -56,7 +56,7 @@ def on_message(client, userdata, msg):
     message_log[int(datetime.now().strftime("%H%M%S%f"))] = int(msg.payload)
     data = DataOutput(
         client_id = client_instance,
-        timestamp = datetime.now().strftime("%H%M%S%f"),
+        data_timestamp = datetime.now().strftime("%H:%M:%S:%f"),
         current_value = list(message_log.values())[-1],
         one_minute_average = averages(100000000),
         five_minute_average = averages(500000000),
