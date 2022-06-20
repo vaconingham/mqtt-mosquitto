@@ -3,13 +3,14 @@
 
 ### Overview
 
-This is an example MQTT service using Djago.
+This is an example MQTT service using Django and a Eclipse Mosquitto MQTT broker.
 
-The Django application serves a UI for users to visualise information about MQTT clients connected to the broker.
+The application serves a UI for users to visualise information about MQTT clients connected to their network.
 
-The UI does two things:
-1. Collects data from clients publishing to restricted topics on the MQTT broker.
-2. Django allows users to login and visualise information about each client connected within their network.
+The UI does two primary things:
+1. Lists all devices connected to a network (broker).
+2. Collects data from clients on restricted topics on the MQTT broker.
+3. Displays data about each client.
 
 ### How to get it working:
 
