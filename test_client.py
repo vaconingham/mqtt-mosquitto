@@ -55,10 +55,6 @@ client.connect('localhost', 1883)
 client.on_connect = on_connect
 client.on_publish = on_publish
 
-# This is here to give time to for the client to connect before trying to process data.
-# The more efficient way would be to use a flag on_connect.
-time.sleep(4)
-
 client.loop_start()
 
 while True:
