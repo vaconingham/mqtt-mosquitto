@@ -19,6 +19,7 @@ class Client(models.Model):
 
 
 class DataOutput(models.Model):
+    timestamp = models.DateTimeField(auto_now_add=True)
     client_id = models.ForeignKey(
         Client, 
         related_name='data_output', 
@@ -26,11 +27,11 @@ class DataOutput(models.Model):
         blank=True, 
         editable=False
         )
-    timestamp = models.DateTimeField(auto_now_add=True)
+    data_timestamp = models.CharField(max_length=50, blank=True)
     current_value = models.FloatField(blank=True)
     one_minute_average = models.FloatField(blank=True)
     five_minute_average = models.FloatField(blank=True)
     thirty_minute_average = models.FloatField(blank=True)
 
     def __str__(self):
-        return str(self.timestamp)
+        return str(self.client_id) + ' ' + str(self.data_timestamp)
