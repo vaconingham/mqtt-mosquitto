@@ -8,9 +8,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 
-SECRET_KEY = 'django-insecure-0=0rv3=kug1x*w4bc-$5xe_bd3d6pw^r070#y81vsx#6)6=jrl'
-
-
 DEBUG = True
 
 
